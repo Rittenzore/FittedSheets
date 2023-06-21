@@ -148,6 +148,7 @@ public class SheetViewController: UIViewController {
     
     public var shouldDismiss: ((SheetViewController) -> Bool)?
     public var didDismiss: ((SheetViewController) -> Void)?
+    public var willBeginDragging: ((SheetViewController) -> Void)?
     public var sizeChanged: ((SheetViewController, SheetSize, CGFloat) -> Void)?
     public var panGestureShouldBegin: ((UIPanGestureRecognizer) -> Bool?)?
     
@@ -407,6 +408,7 @@ public class SheetViewController: UIViewController {
                 })
             
             case .began, .changed:
+                willBeginDragging?(self)
                 self.contentViewHeightConstraint.constant = newHeight
                 
                 if offset > 0 {
